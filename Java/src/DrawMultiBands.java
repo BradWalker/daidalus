@@ -66,14 +66,14 @@ public class DrawMultiBands {
 	}
 
 	static String region2str(BandsRegion r) {
-		switch (r) {
-		case NONE: return "0";
-		case FAR: return "1";
-		case MID: return "2";
-		case NEAR: return "3";
-		case RECOVERY: return "4";
-		default: return "-1";
-		}
+            return switch (r) {
+                case NONE -> "0";
+                case FAR -> "1";
+                case MID -> "2";
+                case NEAR -> "3";
+                case RECOVERY -> "4";
+                default -> "-1";
+            };
 	}
 
 	public static void main(String[] args) {
@@ -124,25 +124,31 @@ public class DrawMultiBands {
 			// Configure alerters as in DO_365B Phase I, Phase II, and Non-Cooperative, with SUM
 			daa.set_DO_365B();		
 		} else if (!daa.loadFromFile(config)) {
-			if (config.equals("no_sum")) {
-				// Configure DAIDALUS as in DO-365B, without SUM
-				daa.set_DO_365B(true,false);
-			} else if (config.equals("nom_a")) {
-				// Configure DAIDALUS to Nominal A: Buffered DWC, Kinematic Bands, Turn Rate 1.5 [deg/s]
-				daa.set_Buffered_WC_DO_365(false);
-			} else if (config.equals("nom_b")) {
-				// Configure DAIDALUS to Nominal B: Buffered DWS, Kinematic Bands, Turn Rate 3.0 [deg/s]
-				daa.set_Buffered_WC_DO_365(true);
-			} else if (config.equals("cd3d")) {
-				// Configure DAIDALUS to CD3D parameters: Cylinder (5nmi,1000ft), Instantaneous Bands, Only Corrective Volume
-				daa.set_CD3D();
-			} else if (config.equals("tcasii")) {
-				// Configure DAIDALUS to ideal TCASII logic: TA is Preventive Volume and RA is Corrective One
-				daa.set_TCASII();
-			} else {
-				System.err.println("** Error: File "+config+" not found");
-				System.exit(1);
-			}
+                    switch (config) {
+                        case "no_sum":
+                            // Configure DAIDALUS as in DO-365B, without SUM
+                            daa.set_DO_365B(true,false);
+                            break;
+                        case "nom_a":
+                            // Configure DAIDALUS to Nominal A: Buffered DWC, Kinematic Bands, Turn Rate 1.5 [deg/s]
+                            daa.set_Buffered_WC_DO_365(false);
+                            break;
+                        case "nom_b":
+                            // Configure DAIDALUS to Nominal B: Buffered DWS, Kinematic Bands, Turn Rate 3.0 [deg/s]
+                            daa.set_Buffered_WC_DO_365(true);
+                            break;
+                        case "cd3d":
+                            // Configure DAIDALUS to CD3D parameters: Cylinder (5nmi,1000ft), Instantaneous Bands, Only Corrective Volume
+                            daa.set_CD3D();
+                            break;
+                        case "tcasii":
+                            // Configure DAIDALUS to ideal TCASII logic: TA is Preventive Volume and RA is Corrective One
+                            daa.set_TCASII();
+                            break;
+                        default:
+                            System.err.println("** Error: File "+config+" not found");
+                            System.exit(1);
+                    }
 		}
 
 		System.out.println("Writing file "+output+", which can be processed with the Python script drawmultibands.py");
