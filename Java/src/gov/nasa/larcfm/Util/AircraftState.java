@@ -12,6 +12,7 @@
 package gov.nasa.larcfm.Util;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -903,8 +904,8 @@ public final class AircraftState {
 	 */
 	public boolean turnFinishing() {
 		//f.pln(" $$$ timeLastZeroTrackRate: "+id+" size = "+size);
-		ArrayList<Double> times = new ArrayList<Double>(10);
-		ArrayList<Double> trackRates = new ArrayList<Double>(10);
+		List<Double> times = new ArrayList<>(10);
+		List<Double> trackRates = new ArrayList<>(10);
 		
 		if (size < 2) return false;
 		double trkLast = 0;
