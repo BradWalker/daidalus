@@ -343,14 +343,14 @@ public class NavPoint {
 		return new NavPoint(this.p, this.t, name); 
 	}
 
-	/**
-	 * Return true if point has a name.
-	 * @return true, if has a name
-	 */
-	public boolean isNamedWayPoint() {
-		if (name.equals("")) return false;
-		return true;
-	}
+    /**
+     * Return true if point has a name.
+     *
+     * @return true, if has a name
+     */
+    public boolean isNamedWayPoint() {
+        return !name.equals("");
+    }
 
 	/**
 	 * Add the given name to this point's name
@@ -629,8 +629,6 @@ public class NavPoint {
 		return f.FmPrecision(t,2) + " -> " + p.toString(precision) + "\t "+f.padRight(name,4);
 	}
 
-	
-	
 //	/** String representation, using the give precision 
 //	 * 
 //	 * @return a string representation*/

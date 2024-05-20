@@ -13,7 +13,6 @@ import java.util.Calendar;
 import java.util.Comparator;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -850,7 +849,7 @@ public final class Util {
 	public static double parse_double(String s) {
 		try {
 			return Double.parseDouble(s);
-		} catch (Exception e) { // both NullPointerException and NumberFormatException
+		} catch (NumberFormatException e) { // both NullPointerException and NumberFormatException
 			return 0.0;
 		}
 	}
@@ -863,7 +862,7 @@ public final class Util {
 	 */ 
 	public static boolean is_int(String s) {
 		try {
-			Integer.parseInt(s);
+			Integer.valueOf(s);
 			return true;
 		} catch (NumberFormatException e) {
 			return false;
